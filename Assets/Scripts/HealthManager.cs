@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
-    public bool isPlayerOne = true;
     public Slider healthBar;  // Assign this in the Inspector
     public float maxHealth = 100f;
     private float currentHealth;
@@ -16,15 +15,7 @@ public class HealthManager : MonoBehaviour
         UpdateHealthBar();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Bot")) // Assuming both bots have the "Bot" tag
-        {
-            TakeDamage(10f); // Reduce health by 10 on collision
-        }
-    }
-
-    void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Prevent negative health
