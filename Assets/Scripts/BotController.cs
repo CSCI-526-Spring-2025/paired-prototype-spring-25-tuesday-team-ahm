@@ -177,14 +177,15 @@ public class BotController : MonoBehaviour
         handleColorSwitchTimeout();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (rivalController.botColor == botColor)
         {
             return;
         }
 
-         if (collisionEnabled && collision.name == "Body_Trigger")
+        if (collisionEnabled && collision.collider.name == "Body")
         {
             if (collisionTimeout > 0.5f)
             {
