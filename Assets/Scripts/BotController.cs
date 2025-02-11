@@ -28,6 +28,12 @@ public class BotController : MonoBehaviour
     private BotController rivalController;
 
     private bool collisionEnabled = true;
+    public bool CollisionEnabled {
+        get {
+            return collisionEnabled;
+        }
+    }
+
     private float collisionTimeout = 0;
 
     private Rigidbody2D rb;

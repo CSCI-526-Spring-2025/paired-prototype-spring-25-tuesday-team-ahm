@@ -407,7 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6951496973202127486, guid: 2dfcadc3263b846228cd97102891406e, type: 3}
   firePoint: {fileID: 892358241}
-  bulletSpeed: 20
+  bulletSpeed: 40
 --- !u!1 &278285199
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerOne: 1
-  maxMoveSpeed: 24
+  maxMoveSpeed: 16
   rotateSpeed: 260
   colorSwitchDuration: 2
   baseDamage: 10
@@ -992,7 +992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6951496973202127486, guid: 2dfcadc3263b846228cd97102891406e, type: 3}
   firePoint: {fileID: 1358378958}
-  bulletSpeed: 20
+  bulletSpeed: 40
 --- !u!1 &643696618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,7 +1583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerOne: 0
-  maxMoveSpeed: 24
+  maxMoveSpeed: 16
   rotateSpeed: 260
   colorSwitchDuration: 2
   baseDamage: 10

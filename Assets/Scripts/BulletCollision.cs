@@ -14,20 +14,28 @@ public class BulletCollision : MonoBehaviour
             return;
         }
 
+        GameObject bot = collision.gameObject;
+        BotController botController = bot.GetComponent<BotController>();
+        if (!botController.CollisionEnabled) 
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         // Check if the collided object has a HealthManager component
-        HealthManager healthManager = collision.gameObject.GetComponent<HealthManager>();
-        if (healthManager != null){
+        HealthManager healthManager = bot.GetComponent<HealthManager>();
+        if (healthManager != null)
+        {
             // Apply damage to the bot
             healthManager.TakeDamage(damageByBullet);
         }
 
 
         // Check if the bullet hit a bot
-        if (collision.gameObject.CompareTag("Bot_1") || collision.gameObject.CompareTag("Bot_2")) {
+        if (bot.CompareTag("Bot_1") || bot.CompareTag("Bot_2")) 
+        {
             // Destroy the bullet on impact
             Destroy(gameObject);
         }
-    
     }
 }
