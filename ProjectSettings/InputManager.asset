@@ -92,7 +92,7 @@ InputManager:
     negativeButton: 
     positiveButton: right ctrl
     altNegativeButton: 
-    altPositiveButton: 
+    altPositiveButton: right cmd
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
