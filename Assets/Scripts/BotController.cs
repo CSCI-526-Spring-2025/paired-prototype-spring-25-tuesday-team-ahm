@@ -210,9 +210,25 @@ public class BotController : MonoBehaviour
         {
             if (collisionTimeout > 0.5f)
             {
-                print("collision");
-                //TODO: damage should be calculated by collsion speed and angle
-                healthManager.TakeDamage(10f);
+                float rivalSpeed = rivalController.Velocity;
+                if (velocity == 0 && rivalSpeed == 0)
+                { 
+                    return;
+                }
+
+                float speedFactor = rivalSpeed / (velocity + rivalSpeed);
+                speedFactor = Mathf.Pow(2, speedFactor) - 1; // 2^x - 1
+
+                ContactPoint2D contact = collision.contacts[0];
+                float contactDir = Vector2.Dot(contact.normal, transform.up);
+                float angleFactor = 1 - contactDir;
+                angleFactor = -0.5f * Mathf.Pow(angleFactor, 2) + 2 * angleFactor; // -1/2 x^2 + 2x
+
+                float damage = baseDamage * speedFactor * angleFactor;
+
+                print($"velocity: {velocity}, speed factor: {speedFactor}, angle factor: {angleFactor}, damage: {damage}");
+
+                healthManager.TakeDamage(damage);
 
                 collisionTimeout = 0;
             }
