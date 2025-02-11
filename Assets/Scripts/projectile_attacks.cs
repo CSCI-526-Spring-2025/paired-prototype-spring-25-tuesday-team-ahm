@@ -8,7 +8,7 @@ public class projectile_attacks : MonoBehaviour
     // The point from where the bullet will be fired
     public Transform firePoint;
     // Speed of the bullet
-    public float bulletSpeed = 25f;
+    public float bulletSpeed = 40f;
     void Start()
     {
         

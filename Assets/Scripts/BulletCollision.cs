@@ -6,7 +6,7 @@ public class BulletCollision : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject shooter;
-    public float damageByBullet = 15f;
+    public float damageByBullet = 20f;
     void OnCollisionEnter2D(Collision2D collision) {
 
         // // Ignore collision if the bullet hits the shooter itself
