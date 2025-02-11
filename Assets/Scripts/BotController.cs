@@ -73,7 +73,7 @@ public class BotController : MonoBehaviour
 
     public void SwitchColor(bool flag)
     {
-        if (flag && colorSwitchFlag) 
+        if (flag && colorSwitchFlag)
         {
             return;
         }
@@ -137,9 +137,9 @@ public class BotController : MonoBehaviour
 
         rivalController = rival.GetComponent<BotController>();
 
-        healthManager = GetComponent<HealthManager>();  
+        healthManager = GetComponent<HealthManager>();
     }
-    
+
     private void handleInput()
     {
         float verticalInput = Input.GetAxis($"Vertical_{playerTag}");
@@ -206,16 +206,16 @@ public class BotController : MonoBehaviour
 
         if (collisionEnabled && collision.collider.name == "Body")
         {
-            if (collisionTimeout > 0.5f)
+            if (collisionTimeout > 0.7f)
             {
                 float rivalSpeed = rivalController.Velocity;
                 if (velocity == 0 && rivalSpeed == 0)
-                { 
+                {
                     return;
                 }
 
                 float speedFactor = rivalSpeed / (velocity + rivalSpeed);
-                speedFactor = Mathf.Pow(2, speedFactor) - 1; // 2^x - 1
+                speedFactor = (Mathf.Pow(2, speedFactor) - 1) * rivalSpeed / maxMoveSpeed; // 2^x - 1
 
                 ContactPoint2D contact = collision.contacts[0];
                 float contactDir = Vector2.Dot(contact.normal, transform.up);
