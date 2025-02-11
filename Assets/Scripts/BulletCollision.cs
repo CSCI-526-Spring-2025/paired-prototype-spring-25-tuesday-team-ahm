@@ -6,6 +6,7 @@ public class BulletCollision : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject shooter;
+    public float damageByBullet = 15f;
     void OnCollisionEnter2D(Collision2D collision) {
 
         // // Ignore collision if the bullet hits the shooter itself
@@ -14,7 +15,12 @@ public class BulletCollision : MonoBehaviour
         }
 
 
-
+        // Check if the collided object has a HealthManager component
+        HealthManager healthManager = collision.gameObject.GetComponent<HealthManager>();
+        if (healthManager != null){
+            // Apply damage to the bot
+            healthManager.TakeDamage(damageByBullet);
+        }
 
 
         // Check if the bullet hit a bot
