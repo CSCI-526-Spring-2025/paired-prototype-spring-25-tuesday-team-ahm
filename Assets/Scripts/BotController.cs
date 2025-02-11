@@ -36,8 +36,6 @@ public class BotController : MonoBehaviour
 
     private string playerTag = "";
 
-    private Vector2 prevPosition;
-
     public bool ColorSwitchFlag()
     {
         return colorSwitchFlag;
@@ -136,6 +134,7 @@ public class BotController : MonoBehaviour
         resetColor();
 
         rb = GetComponent<Rigidbody2D>();
+
         rivalController = rival.GetComponent<BotController>();
 
         healthManager = GetComponent<HealthManager>();  
@@ -147,15 +146,9 @@ public class BotController : MonoBehaviour
         float horizontalInput = Input.GetAxis($"Horizontal_{playerTag}");
 
         rb.MoveRotation(rb.rotation - horizontalInput * rotateSpeed * Time.fixedDeltaTime);
-        rb.MovePosition(rb.position + (Vector2)transform.up * verticalInput * moveSpeed * Time.fixedDeltaTime);
+        rb.AddForce(transform.up * 10000 * verticalInput);
 
-        if (prevPosition != null)
-        {
-            Vector2 velocity = (rb.position - prevPosition) / Time.fixedDeltaTime;
-            this.velocity = velocity.magnitude;
-        }
-
-        prevPosition = rb.position;
+        this.velocity = rb.velocity.magnitude;
 
         // currently using space & left ctrl for skills
         float skillInput = Input.GetAxis($"Skill_{playerTag}");
@@ -201,6 +194,7 @@ public class BotController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
         if (rivalController.botColor == botColor)
         {
             return;
