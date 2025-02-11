@@ -12,12 +12,12 @@ public class BotController : MonoBehaviour
 {
     public bool isPlayerOne = true;
 
-    public float moveSpeed = 16;
+    public float maxMoveSpeed = 24;
     public float rotateSpeed = 220;
 
     public float colorSwitchDuration = 2;
 
-    public float baseDamage = 10;
+    public float baseDamage = 3;
 
     public GameObject rival;
 
@@ -149,6 +149,10 @@ public class BotController : MonoBehaviour
         rb.AddForce(transform.up * 10000 * verticalInput);
 
         this.velocity = rb.velocity.magnitude;
+        if (rb.velocity.magnitude > maxMoveSpeed)
+        {
+            rb.velocity = Vector2.Scale(rb.velocity.normalized, new Vector2(maxMoveSpeed, maxMoveSpeed));
+        }
 
         // currently using space & left ctrl for skills
         float skillInput = Input.GetAxis($"Skill_{playerTag}");
@@ -216,7 +220,7 @@ public class BotController : MonoBehaviour
                 ContactPoint2D contact = collision.contacts[0];
                 float contactDir = Vector2.Dot(contact.normal, transform.up);
                 float angleFactor = 1 - contactDir;
-                angleFactor = -0.5f * Mathf.Pow(angleFactor, 2) + 2 * angleFactor; // -1/2 x^2 + 2x
+                angleFactor = -0.5f * Mathf.Pow(angleFactor, 2) + 2 * angleFactor + 1; // -1/2 x^2 + 2x + 1
 
                 float damage = baseDamage * speedFactor * angleFactor;
 
