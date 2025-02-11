@@ -17,6 +17,8 @@ public class BotController : MonoBehaviour
 
     public float colorSwitchDuration = 2;
 
+    public float baseDamage = 10;
+
     public GameObject rival;
 
     private bool colorSwitchFlag = false;
@@ -34,9 +36,11 @@ public class BotController : MonoBehaviour
 
     private string playerTag = "";
 
+    private Vector2 prevPosition;
+
     public bool ColorSwitchFlag()
-    { 
-        return colorSwitchFlag; 
+    {
+        return colorSwitchFlag;
     }
 
     public BotColors BotColor()
@@ -49,6 +53,12 @@ public class BotController : MonoBehaviour
         return transform.Find("Body").gameObject;
     }
 
+    private float velocity = 0;
+
+    public float Velocity
+    {
+        get { return velocity; }
+    }
 
     private void handleMaterialColorSwitching(Color color)
     {
@@ -101,9 +111,12 @@ public class BotController : MonoBehaviour
         GameObject body = GetBody();
         GameObject rivalBody = rivalController.GetBody();
 
+        Collider2D collider = body.GetComponent<Collider2D>();
+        Collider2D rivalCollider = rivalBody.GetComponent<Collider2D>();
+
         if (body != null && rivalBody != null)
         {
-            Physics2D.IgnoreCollision(body.GetComponent<Collider2D>(),rivalBody.GetComponent<Collider2D>(), !collidable);
+            Physics2D.IgnoreCollision(collider, rivalCollider, !collidable);
         }
 
         collisionEnabled = collidable;
@@ -136,6 +149,14 @@ public class BotController : MonoBehaviour
         rb.MoveRotation(rb.rotation - horizontalInput * rotateSpeed * Time.fixedDeltaTime);
         rb.MovePosition(rb.position + (Vector2)transform.up * verticalInput * moveSpeed * Time.fixedDeltaTime);
 
+        if (prevPosition != null)
+        {
+            Vector2 velocity = (rb.position - prevPosition) / Time.fixedDeltaTime;
+            this.velocity = velocity.magnitude;
+        }
+
+        prevPosition = rb.position;
+
         // currently using space & left ctrl for skills
         float skillInput = Input.GetAxis($"Skill_{playerTag}");
 
@@ -157,12 +178,12 @@ public class BotController : MonoBehaviour
             {
                 SwitchColor(false);
             }
+        }
 
-            // collision
-            if (rivalController != null)
-            {
-                switchCollidableState(rivalController.botColor != botColor);
-            }
+        // collision
+        if (rivalController != null)
+        {
+            switchCollidableState(rivalController.botColor != botColor);
         }
     }
 
