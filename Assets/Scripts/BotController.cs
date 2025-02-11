@@ -12,12 +12,12 @@ public class BotController : MonoBehaviour
 {
     public bool isPlayerOne = true;
 
-    public float moveSpeed = 16;
+    public float maxMoveSpeed = 24;
     public float rotateSpeed = 220;
 
     public float colorSwitchDuration = 2;
 
-    public float baseDamage = 10;
+    public float baseDamage = 3;
 
     public GameObject rival;
 
@@ -35,8 +35,6 @@ public class BotController : MonoBehaviour
     private HealthManager healthManager;
 
     private string playerTag = "";
-
-    private Vector2 prevPosition;
 
     public bool ColorSwitchFlag()
     {
@@ -136,6 +134,7 @@ public class BotController : MonoBehaviour
         resetColor();
 
         rb = GetComponent<Rigidbody2D>();
+
         rivalController = rival.GetComponent<BotController>();
 
         healthManager = GetComponent<HealthManager>();  
@@ -147,15 +146,13 @@ public class BotController : MonoBehaviour
         float horizontalInput = Input.GetAxis($"Horizontal_{playerTag}");
 
         rb.MoveRotation(rb.rotation - horizontalInput * rotateSpeed * Time.fixedDeltaTime);
-        rb.MovePosition(rb.position + (Vector2)transform.up * verticalInput * moveSpeed * Time.fixedDeltaTime);
+        rb.AddForce(transform.up * 10000 * verticalInput);
 
-        if (prevPosition != null)
+        this.velocity = rb.velocity.magnitude;
+        if (rb.velocity.magnitude > maxMoveSpeed)
         {
-            Vector2 velocity = (rb.position - prevPosition) / Time.fixedDeltaTime;
-            this.velocity = velocity.magnitude;
+            rb.velocity = Vector2.Scale(rb.velocity.normalized, new Vector2(maxMoveSpeed, maxMoveSpeed));
         }
-
-        prevPosition = rb.position;
 
         // currently using space & left ctrl for skills
         float skillInput = Input.GetAxis($"Skill_{playerTag}");
@@ -201,6 +198,7 @@ public class BotController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
         if (rivalController.botColor == botColor)
         {
             return;
@@ -210,9 +208,25 @@ public class BotController : MonoBehaviour
         {
             if (collisionTimeout > 0.5f)
             {
-                print("collision");
-                //TODO: damage should be calculated by collsion speed and angle
-                healthManager.TakeDamage(10f);
+                float rivalSpeed = rivalController.Velocity;
+                if (velocity == 0 && rivalSpeed == 0)
+                { 
+                    return;
+                }
+
+                float speedFactor = rivalSpeed / (velocity + rivalSpeed);
+                speedFactor = Mathf.Pow(2, speedFactor) - 1; // 2^x - 1
+
+                ContactPoint2D contact = collision.contacts[0];
+                float contactDir = Vector2.Dot(contact.normal, transform.up);
+                float angleFactor = 1 - contactDir;
+                angleFactor = -0.5f * Mathf.Pow(angleFactor, 2) + 2 * angleFactor + 1; // -1/2 x^2 + 2x + 1
+
+                float damage = baseDamage * speedFactor * angleFactor;
+
+                print($"velocity: {velocity}, speed factor: {speedFactor}, angle factor: {angleFactor}, damage: {damage}");
+
+                healthManager.TakeDamage(damage);
 
                 collisionTimeout = 0;
             }

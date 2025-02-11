@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bot
+  - Bot_1
+  - Bot_2
+  - Bot_3
   layers:
   - Default
   - TransparentFX
