@@ -319,6 +319,7 @@ GameObject:
   - component: {fileID: 241386137}
   - component: {fileID: 241386140}
   - component: {fileID: 241386139}
+  - component: {fileID: 241386141}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -338,7 +339,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.545, z: 0}
   m_LocalScale: {x: 0.2, y: 0.5, z: 0.2}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 892358241}
   m_Father: {fileID: 612777800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &241386139
@@ -391,6 +393,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 241386136}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &241386141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241386136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2715616e823904c54826f0439a34cbec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 6951496973202127486, guid: 2dfcadc3263b846228cd97102891406e, type: 3}
+  firePoint: {fileID: 892358241}
+  bulletSpeed: 20
 --- !u!1 &278285199
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,6 +921,7 @@ MonoBehaviour:
   moveSpeed: 24
   rotateSpeed: 220
   colorSwitchDuration: 2
+  baseDamage: 10
   rival: {fileID: 897365018}
 --- !u!114 &612777803
 MonoBehaviour:
@@ -930,6 +948,7 @@ GameObject:
   - component: {fileID: 616342068}
   - component: {fileID: 616342071}
   - component: {fileID: 616342070}
+  - component: {fileID: 616342072}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -949,7 +968,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.2, z: 0}
   m_LocalScale: {x: 0.2, y: 0.5, z: 0.2}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1358378958}
   m_Father: {fileID: 897365023}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &616342070
@@ -1002,6 +1022,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616342067}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &616342072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616342067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2715616e823904c54826f0439a34cbec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 6951496973202127486, guid: 2dfcadc3263b846228cd97102891406e, type: 3}
+  firePoint: {fileID: 1358378958}
+  bulletSpeed: 20
 --- !u!1 &643696618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,8 +1065,8 @@ Transform:
   m_GameObject: {fileID: 643696618}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 42, z: 0}
-  m_LocalScale: {x: 73, y: 10, z: 1}
+  m_LocalPosition: {x: 0.4, y: 40.254, z: 0}
+  m_LocalScale: {x: 72.27664, y: 1.2555432, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1280310809}
@@ -1368,6 +1403,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &892358240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 892358241}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &892358241
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892358240}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 241386137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &895853976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,6 +1630,7 @@ MonoBehaviour:
   moveSpeed: 24
   rotateSpeed: 220
   colorSwitchDuration: 2
+  baseDamage: 10
   rival: {fileID: 612777797}
 --- !u!114 &897365022
 MonoBehaviour:
@@ -2072,6 +2139,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1358378957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1358378958}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1358378958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358378957}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 616342068}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1750956216
 GameObject:
   m_ObjectHideFlags: 0
@@ -2136,8 +2234,8 @@ Transform:
   m_GameObject: {fileID: 2028741804}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 36, y: 20, z: 0}
-  m_LocalScale: {x: 1, y: 41, z: 1}
+  m_LocalPosition: {x: 29.943, y: 20, z: 0}
+  m_LocalScale: {x: 1.9069579, y: 41, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1280310809}
@@ -2265,8 +2363,8 @@ Transform:
   m_GameObject: {fileID: 2112569783}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36, y: 20, z: 0}
-  m_LocalScale: {x: 1, y: 41, z: 1}
+  m_LocalPosition: {x: -29.6968, y: 20, z: 0}
+  m_LocalScale: {x: 1.9738232, y: 41, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1280310809}
