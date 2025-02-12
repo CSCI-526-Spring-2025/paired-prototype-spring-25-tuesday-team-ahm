@@ -407,7 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6951496973202127486, guid: 2dfcadc3263b846228cd97102891406e, type: 3}
   firePoint: {fileID: 892358241}
-  bulletSpeed: 20
+  bulletSpeed: 40
 --- !u!1 &278285199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,11 +1064,9 @@ GameObject:
   m_Component:
   - component: {fileID: 612777800}
   - component: {fileID: 612777799}
-  - component: {fileID: 612777798}
   - component: {fileID: 612777801}
   - component: {fileID: 612777802}
   - component: {fileID: 612777803}
-  - component: {fileID: 612777804}
   m_Layer: 0
   m_Name: Bot_1
   m_TagString: Bot_1
@@ -1076,49 +1074,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!66 &612777798
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 612777797}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 7661c242b2634a846a7b7fc95cec287f, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 1
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths: []
-  m_CompositePaths:
-    m_Paths: []
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
-  m_UseDelaunayMesh: 0
-  m_CompositeGameObject: {fileID: 612777797}
 --- !u!50 &612777799
 Rigidbody2D:
   serializedVersion: 4
@@ -1341,7 +1296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6951496973202127486, guid: 2dfcadc3263b846228cd97102891406e, type: 3}
   firePoint: {fileID: 1358378958}
-  bulletSpeed: 20
+  bulletSpeed: 40
 --- !u!1 &643696618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1370,8 +1325,8 @@ Transform:
   m_GameObject: {fileID: 643696618}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 40.254, z: 0}
-  m_LocalScale: {x: 72.27664, y: 1.2555432, z: 1}
+  m_LocalPosition: {x: 0, y: 40.254, z: 0}
+  m_LocalScale: {x: 73, y: 1.2555432, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1280310809}
@@ -1842,7 +1797,6 @@ GameObject:
   - component: {fileID: 897365020}
   - component: {fileID: 897365019}
   - component: {fileID: 897365024}
-  - component: {fileID: 897365025}
   m_Layer: 0
   m_Name: Bot_2
   m_TagString: Bot_2
@@ -3341,7 +3295,7 @@ Transform:
   m_GameObject: {fileID: 2028741804}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 34.7, y: 20.2, z: 0}
+  m_LocalPosition: {x: 35.6, y: 20.2, z: 0}
   m_LocalScale: {x: 1.7856753, y: 41, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3470,7 +3424,7 @@ Transform:
   m_GameObject: {fileID: 2112569783}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34.76, y: 20.13, z: 0}
+  m_LocalPosition: {x: -35.3, y: 20.13, z: 0}
   m_LocalScale: {x: 2.1566958, y: 41, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3606,7 +3560,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 91.29999, y: -33.4}
+  m_AnchoredPosition: {x: 160, y: -40}
   m_SizeDelta: {x: 160, y: 40.555786}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2120941918

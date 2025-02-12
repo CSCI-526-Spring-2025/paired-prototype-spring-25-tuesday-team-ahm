@@ -17,7 +17,7 @@ public class BotController : MonoBehaviour
 
     public float colorSwitchDuration = 2;
 
-    public float baseDamage = 3;
+    public float baseDamage = 1f;
 
     public GameObject rival;
 
@@ -28,6 +28,12 @@ public class BotController : MonoBehaviour
     private BotController rivalController;
 
     private bool collisionEnabled = true;
+    public bool CollisionEnabled {
+        get {
+            return collisionEnabled;
+        }
+    }
+
     private float collisionTimeout = 0;
 
     private Rigidbody2D rb;
@@ -73,7 +79,7 @@ public class BotController : MonoBehaviour
 
     public void SwitchColor(bool flag)
     {
-        if (flag && colorSwitchFlag) 
+        if (flag && colorSwitchFlag)
         {
             return;
         }
@@ -137,9 +143,9 @@ public class BotController : MonoBehaviour
 
         rivalController = rival.GetComponent<BotController>();
 
-        healthManager = GetComponent<HealthManager>();  
+        healthManager = GetComponent<HealthManager>();
     }
-    
+
     private void handleInput()
     {
         float verticalInput = Input.GetAxis($"Vertical_{playerTag}");
@@ -210,15 +216,22 @@ public class BotController : MonoBehaviour
             {
                 float rivalSpeed = rivalController.Velocity;
                 if (velocity == 0 && rivalSpeed == 0)
-                { 
+                {
                     return;
                 }
 
                 float speedFactor = rivalSpeed / (velocity + rivalSpeed);
-                speedFactor = Mathf.Pow(2, speedFactor) - 1; // 2^x - 1
+                speedFactor = (Mathf.Pow(2, speedFactor) - 1) * rivalSpeed / maxMoveSpeed; // 2^x - 1
 
                 ContactPoint2D contact = collision.contacts[0];
                 float contactDir = Vector2.Dot(contact.normal, transform.up);
+                float rivalDir = Vector2.Dot(transform.up, rival.transform.up);
+
+                if (rivalDir < -0.3f) // 45deg
+                {
+                    speedFactor *= 1.5f;
+                }
+
                 float angleFactor = 1 - contactDir;
                 angleFactor = -0.5f * Mathf.Pow(angleFactor, 2) + 2 * angleFactor + 1; // -1/2 x^2 + 2x + 1
 
@@ -226,7 +239,7 @@ public class BotController : MonoBehaviour
 
                 print($"velocity: {velocity}, speed factor: {speedFactor}, angle factor: {angleFactor}, damage: {damage}");
 
-                healthManager.TakeDamage(damage);
+                healthManager.TakeDamage(Mathf.Min(damage, 15));
 
                 collisionTimeout = 0;
             }
