@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class projectile_attacks : MonoBehaviour
 {
-     public GameObject bulletPrefab;
+    public GameObject bulletPrefab;
     // The point from where the bullet will be fired
     public Transform firePoint;
     // Speed of the bullet
@@ -16,26 +16,25 @@ public class projectile_attacks : MonoBehaviour
     //Maximum number of bullets allowed
     public int maxBullet = 5;
 
+    public int BulletCount
+    {
+        get { return maxBullet - bulletFired; }
+    }
+
+    public void ResetBullets()
+    {
+        bulletFired = 0;
+    }
+
 
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Bot_1 fires with space
-        if (gameObject.name == "Gun" && transform.parent.name == "Bot_1" && Input.GetKeyDown(KeyCode.Q)) {
-            FireBullet();
-        }
-        // Bot_2 fires with Enter
-        else if (gameObject.name == "Gun" && transform.parent.name == "Bot_2" && Input.GetKeyDown(KeyCode.Slash)) {
-            FireBullet();
-        }
-    }
 
-    void FireBullet() {
+    public void FireBullet() 
+    {
 
         // Check if the bot has bullets left
         if (bulletFired >= maxBullet) {
@@ -45,21 +44,12 @@ public class projectile_attacks : MonoBehaviour
         // Instantiate the bullet at firepoint's position and rotation
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
-
-
-
-
-
         // Pass the shooter GameObject reference to the bullet
         BulletCollision bulletScript = bullet.GetComponent<BulletCollision>();
         if (bulletScript != null)
         {
             bulletScript.shooter = transform.root.gameObject;  // Pass the shooter bot itself
         }
-
-
-
-
 
         // Apply velocity to the bullet's Riditbody 2D to make it move
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();

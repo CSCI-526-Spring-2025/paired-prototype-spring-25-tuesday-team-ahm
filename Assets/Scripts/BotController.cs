@@ -21,6 +21,12 @@ public class BotController : MonoBehaviour
 
     public GameObject rival;
 
+    private bool colorSwitchEnabled = false;
+    public bool ColorSwitchEnabled 
+    {
+        get {  return colorSwitchEnabled; }
+    }
+
     private bool colorSwitchFlag = false;
     private float currentColorSwitchingDuration = 0;
     private BotColors botColor;
@@ -28,10 +34,15 @@ public class BotController : MonoBehaviour
     private BotController rivalController;
 
     private bool collisionEnabled = true;
-    public bool CollisionEnabled {
-        get {
-            return collisionEnabled;
-        }
+    public bool CollisionEnabled 
+    {
+        get { return collisionEnabled; }
+    }
+
+    private bool shootingEabled = false;
+    public bool ShootingEabled
+    {
+        get { return shootingEabled; }
     }
 
     private float collisionTimeout = 0;
@@ -40,7 +51,17 @@ public class BotController : MonoBehaviour
 
     private HealthManager healthManager;
 
+    private projectile_attacks projectileAttackController;
+    public int BulletCount
+    {
+        get
+        {
+            return projectileAttackController.BulletCount;
+        }
+    }
+
     private string playerTag = "";
+    private bool skillHasPressed = false;
 
     public bool ColorSwitchFlag()
     {
@@ -86,6 +107,8 @@ public class BotController : MonoBehaviour
 
         if (flag)
         {
+            colorSwitchEnabled = false;
+
             colorSwitchFlag = true;
             currentColorSwitchingDuration = 0;
 
@@ -144,6 +167,8 @@ public class BotController : MonoBehaviour
         rivalController = rival.GetComponent<BotController>();
 
         healthManager = GetComponent<HealthManager>();
+
+        projectileAttackController = transform.Find("Gun").GetComponent<projectile_attacks>();
     }
 
     private void handleInput()
@@ -162,11 +187,23 @@ public class BotController : MonoBehaviour
 
         // currently using space & left ctrl for skills
         float skillInput = Input.GetAxis($"Skill_{playerTag}");
-
-        if (skillInput == 1)
+        if (skillInput == 1 && !skillHasPressed)
         {
+            skillHasPressed = true;
+
             // handle skill input
-            SwitchColor(true);
+            if (colorSwitchEnabled)
+            { 
+                SwitchColor(true);
+            }
+            else if (!colorSwitchFlag && shootingEabled)
+            {
+                projectileAttackController.FireBullet();
+            }
+        }
+        else if (skillInput == 0)
+        {
+            skillHasPressed = false;
         }
     }
 
@@ -254,10 +291,14 @@ public class BotController : MonoBehaviour
         if (powerType == PowerUp.PowerType.Bullets)
         {
             // Enable bullet shooting
+            colorSwitchEnabled = false;
+            shootingEabled = true; 
+            projectileAttackController.ResetBullets();
         }
         else if (powerType == PowerUp.PowerType.ColorSwitch)
         {
-            // Enable SwitchColor
+            colorSwitchEnabled = true;
+            shootingEabled = false;
         }
     }
 
