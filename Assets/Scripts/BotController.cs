@@ -232,4 +232,20 @@ public class BotController : MonoBehaviour
             }
         }
     }
+
+    public void CollectPowerUp(PowerUp.PowerType powerType)
+    {
+        string player = isPlayerOne ? "Player 1" : "Player 2";  
+        Debug.Log($"{player} collected {powerType}");
+
+        if (powerType == PowerUp.PowerType.Bullets)
+        {
+            // Enable bullet shooting
+        }
+        else if (powerType == PowerUp.PowerType.ColorSwitch)
+        {
+            // Enable SwitchColor
+        }
+    }
+
 }
