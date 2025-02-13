@@ -10,7 +10,7 @@ public class PowerUpSpawner : MonoBehaviour
     public float lifetime = 1f; // Time before disappearing
     private GameObject currentPowerUp;
 
-    void Start()
+    public void StartSpawning()
     {
         StartCoroutine(SpawnPowerUpRoutine());
     }

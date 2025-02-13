@@ -3339,6 +3339,7 @@ MonoBehaviour:
   playerTwoPowerText: {fileID: 821821409}
   playerOne: {fileID: 612777797}
   playerTwo: {fileID: 897365018}
+  powerUpSpawner: {fileID: 1651264747}
 --- !u!4 &1651264746
 Transform:
   m_ObjectHideFlags: 0
@@ -3367,9 +3368,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpPrefab: {fileID: 1223428921}
-  arenaSize: {x: 67, y: 10}
-  spawnInterval: 0
-  lifetime: 200
+  arenaSize: {x: 65, y: 39}
+  spawnInterval: 1
+  lifetime: 180
 --- !u!1 &1750956216
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject playerOne;
     public GameObject playerTwo;
+    public PowerUpSpawner powerUpSpawner;
 
 
     void Start()
@@ -40,9 +41,11 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         mainMenuPanel.SetActive(false);
+
         timer = gameDuration;
         isGameActive = true;
         Time.timeScale = 1f;
+        powerUpSpawner.StartSpawning();
     }
 
   
