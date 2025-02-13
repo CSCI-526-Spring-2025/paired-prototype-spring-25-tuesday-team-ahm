@@ -9,13 +9,20 @@ public class BulletCollision : MonoBehaviour
     public float damageByBullet = 20f;
     void OnCollisionEnter2D(Collision2D collision) {
 
-        // // Ignore collision if the bullet hits the shooter itself
+        // Ignore collision if the bullet hits the shooter itself
         if (collision.gameObject == shooter) {
             return;
         }
 
+
         GameObject bot = collision.gameObject;
         BotController botController = bot.GetComponent<BotController>();
+
+        if (botController == null)
+        {
+            return;
+        }
+
         if (!botController.CollisionEnabled) 
         {
             Destroy(gameObject);

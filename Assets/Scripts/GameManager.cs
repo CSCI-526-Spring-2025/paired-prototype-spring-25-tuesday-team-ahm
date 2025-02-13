@@ -18,6 +18,12 @@ public class GameManager : MonoBehaviour
     public Slider playerOneHealthSlider;
     public Slider playerTwoHealthSlider;
 
+    public TMP_Text playerOnePowerText;  // UI text to display P1's power
+    public TMP_Text playerTwoPowerText;  // UI text to display P2's power
+
+    public GameObject playerOne;
+    public GameObject playerTwo;
+
 
     void Start()
     {
@@ -46,7 +52,7 @@ public class GameManager : MonoBehaviour
         {
             timer -= Time.deltaTime;
             UpdateTimerUI();
-
+            UpdatePlayerPowerUI();
             // Check if either player's health has reached zero
             if (playerOneHealthSlider.value <= 0 || playerTwoHealthSlider.value <= 0)
             {
@@ -65,6 +71,20 @@ public class GameManager : MonoBehaviour
         int minutes = Mathf.FloorToInt(timer / 60);
         int seconds = Mathf.FloorToInt(timer % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+    void UpdatePlayerPowerUI()
+    {
+        if (playerOne != null && playerTwo != null)
+        {
+            BotController p1 = playerOne.GetComponent<BotController>();
+            BotController p2 = playerTwo.GetComponent<BotController>();
+        
+            string p1Power = p1.ColorSwitchEnabled ? "Color Switch" : (p1.ShootingEabled && p1.BulletCount > 0) ? $"Bullets: {p1.BulletCount}" : "None";
+            string p2Power = p2.ColorSwitchEnabled ? "Color Switch" : (p2.ShootingEabled && p2.BulletCount > 0) ? $"Bullets: {p2.BulletCount}" : "None";
+
+            playerOnePowerText.text = "P1 Power: " + p1Power;
+            playerTwoPowerText.text = "P2 Power: " + p2Power;
+        }
     }
 
     void EndGame()
