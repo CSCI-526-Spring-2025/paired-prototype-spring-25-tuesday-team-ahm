@@ -15,9 +15,9 @@ public class BotController : MonoBehaviour
     public float maxMoveSpeed = 24;
     public float rotateSpeed = 220;
 
-    public float colorSwitchDuration = 2;
+    public float colorSwitchDuration = 3;
 
-    public float baseDamage = 1f;
+    public float baseDamage = 1;
 
     public GameObject rival;
 
