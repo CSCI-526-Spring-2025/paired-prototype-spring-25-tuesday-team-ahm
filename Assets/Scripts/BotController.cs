@@ -21,11 +21,17 @@ public class BotController : MonoBehaviour
 
     public GameObject rival;
 
-    private bool colorSwitchEnabled = false;
-    public bool ColorSwitchEnabled 
+    public int maxColorSwitchTimes = 2;
+    public float colorSwitchTimeout = 2;
+    private float currentColorSwitchTimeout = 2;
+
+    private int colorSwitchTimes = 0;
+    public int ColorSwitchTimes
     {
-        get {  return colorSwitchEnabled; }
+        get { return colorSwitchTimes; }
     }
+
+    private bool isOverlappingWithOtherBots = false;
 
     private bool colorSwitchFlag = false;
     private float currentColorSwitchingDuration = 0;
@@ -34,7 +40,7 @@ public class BotController : MonoBehaviour
     private BotController rivalController;
 
     private bool collisionEnabled = true;
-    public bool CollisionEnabled 
+    public bool CollisionEnabled
     {
         get { return collisionEnabled; }
     }
@@ -105,9 +111,15 @@ public class BotController : MonoBehaviour
             return;
         }
 
+        if (currentColorSwitchTimeout < colorSwitchTimeout)
+        {
+            return;
+        }
+
+
         if (flag)
         {
-            colorSwitchEnabled = false;
+            colorSwitchTimes -= 1;
 
             colorSwitchFlag = true;
             currentColorSwitchingDuration = 0;
@@ -117,7 +129,13 @@ public class BotController : MonoBehaviour
         }
         else
         {
+            if (isOverlappingWithOtherBots)
+            {
+                return;
+            }
+
             colorSwitchFlag = false;
+            currentColorSwitchTimeout = 0;
 
             resetColor();
         }
@@ -192,8 +210,8 @@ public class BotController : MonoBehaviour
             skillHasPressed = true;
 
             // handle skill input
-            if (colorSwitchEnabled)
-            { 
+            if (colorSwitchTimes > 0)
+            {
                 SwitchColor(true);
             }
             else if (!colorSwitchFlag && shootingEabled)
@@ -232,7 +250,8 @@ public class BotController : MonoBehaviour
     {
         handleInput();
 
-        collisionTimeout += Time.deltaTime;
+        collisionTimeout += Time.fixedDeltaTime;
+        currentColorSwitchTimeout += Time.fixedDeltaTime;
 
         // handle color switching
         handleColorSwitchTimeout();
@@ -274,7 +293,7 @@ public class BotController : MonoBehaviour
 
                 float damage = baseDamage * speedFactor * angleFactor;
 
-                print($"velocity: {velocity}, speed factor: {speedFactor}, angle factor: {angleFactor}, damage: {damage}");
+                Debug.Log($"velocity: {velocity}, speed factor: {speedFactor}, angle factor: {angleFactor}, damage: {damage}");
 
                 healthManager.TakeDamage(Mathf.Min(damage, 15));
 
@@ -285,21 +304,36 @@ public class BotController : MonoBehaviour
 
     public void CollectPowerUp(PowerUp.PowerType powerType)
     {
-        string player = isPlayerOne ? "Player 1" : "Player 2";  
+        string player = isPlayerOne ? "Player 1" : "Player 2";
         Debug.Log($"{player} collected {powerType}");
 
         if (powerType == PowerUp.PowerType.Bullets)
         {
             // Enable bullet shooting
-            colorSwitchEnabled = false;
-            shootingEabled = true; 
+            colorSwitchTimes = 0;
+            shootingEabled = true;
             projectileAttackController.ResetBullets();
         }
         else if (powerType == PowerUp.PowerType.ColorSwitch)
         {
-            colorSwitchEnabled = true;
+            colorSwitchTimes = maxColorSwitchTimes;
             shootingEabled = false;
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (colorSwitchFlag && collision.gameObject.GetComponent<BotController>() != null)
+        {
+            isOverlappingWithOtherBots = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<BotController>() != null)
+        {
+            isOverlappingWithOtherBots = false;
+        }
+    }
 }

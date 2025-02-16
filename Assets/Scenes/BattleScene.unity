@@ -1150,6 +1150,8 @@ MonoBehaviour:
   colorSwitchDuration: 3
   baseDamage: 10
   rival: {fileID: 897365018}
+  maxColorSwitchTimes: 2
+  colorSwitchTimeout: 2
 --- !u!114 &612777803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1196,9 +1198,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.55}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.1
 --- !u!1 &616342067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2030,6 +2032,8 @@ MonoBehaviour:
   colorSwitchDuration: 3
   baseDamage: 10
   rival: {fileID: 612777797}
+  maxColorSwitchTimes: 2
+  colorSwitchTimeout: 2
 --- !u!114 &897365022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2116,7 +2120,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 2.1, y: 2.1}
   m_EdgeRadius: 0
 --- !u!1 &963194225
 GameObject:
@@ -3411,7 +3415,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 950, y: 50}
+  m_SizeDelta: {x: 1200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1812069738
 MonoBehaviour:
@@ -3438,7 +3442,7 @@ MonoBehaviour:
     - Move: WASD(Player 1) / Arrow keys(Player 2)
 
     - Special
-    power: Space(Player 1) / Ctrl (Player 2)
+    power: Space(Player 1) / Ctrl or Cmd (Player 2)
 
 '
   m_isRightToLeft: 0
