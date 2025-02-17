@@ -302,19 +302,19 @@ public class BotController : MonoBehaviour
         }
     }
 
-    public void CollectPowerUp(PowerUp.PowerType powerType)
+    public void CollectPowerUp(PowerType powerType)
     {
         string player = isPlayerOne ? "Player 1" : "Player 2";
         Debug.Log($"{player} collected {powerType}");
 
-        if (powerType == PowerUp.PowerType.Bullets)
+        if (powerType == PowerType.Bullets)
         {
             // Enable bullet shooting
             colorSwitchTimes = 0;
             shootingEabled = true;
             projectileAttackController.ResetBullets();
         }
-        else if (powerType == PowerUp.PowerType.ColorSwitch)
+        else if (powerType == PowerType.ColorSwitch)
         {
             colorSwitchTimes = maxColorSwitchTimes;
             shootingEabled = false;
