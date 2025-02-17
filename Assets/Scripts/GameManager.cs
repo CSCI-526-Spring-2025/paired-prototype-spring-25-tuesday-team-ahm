@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text timerText;
     public Button restartButton;
 
-    public float gameDuration = 180f;
+    public float gameDuration = 60;
     private float timer;
     private bool isGameActive = false;
 
