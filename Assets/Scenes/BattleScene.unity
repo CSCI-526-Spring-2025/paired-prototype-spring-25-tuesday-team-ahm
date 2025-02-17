@@ -3577,7 +3577,7 @@ MonoBehaviour:
     - Move: WASD(Player 1) / Arrow keys(Player 2)
 
     - Special
-    power: Space(Player 1) / Ctrl or Cmd (Player 2)
+    power: Space(Player 1) / Right Shift (Player 2)
 
 '
   m_isRightToLeft: 0
